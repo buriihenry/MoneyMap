@@ -1,2 +1,4 @@
 .env
-__pycache__/
+expenseswebsite/__pycache__/
+expenses/__pycache__/
+authentication/__pycache__/
