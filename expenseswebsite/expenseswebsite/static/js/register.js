@@ -5,7 +5,7 @@ const emailFeedBackArea = document.querySelector('.emailFeedBackArea');
 const usernameSuccessOutput = document.querySelector('.usernameSuccessOutput');
 const emailSuccessOutput = document.querySelector('.emailSuccessOutput');
 
-const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
 
 
 
@@ -19,10 +19,7 @@ emailField.addEventListener("keyup", (e) => {
       fetch("/authentication/validate-email", {
         body: JSON.stringify({ email: emailVal }),
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": csrfToken, // Add CSRF token if needed
-          },
+        
       })
         .then((res) => res.json())
         .then((data) => {
@@ -31,9 +28,7 @@ emailField.addEventListener("keyup", (e) => {
             emailField.classList.add("is-invalid");
             emailFeedBackArea.style.display = "block";
             emailFeedBackArea.innerHTML = `<p>${data.email_error}</p>`;
-          } else {
-            submitBtn.removeAttribute("disabled");
-          }
+          } 
         });
     
     }

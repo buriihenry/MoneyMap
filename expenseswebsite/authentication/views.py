@@ -3,6 +3,7 @@ from django.views import View
 import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+import re
 from django.core.validators import validate_email
 
 # Create your views here.
@@ -10,14 +11,19 @@ class EmailValidationView(View):
     def post(self, request):
         data = json.loads(request.body)
         email = data['email']
-        if not validate_email(email):
+        
+        # More robust email validation
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_regex, email):
             return JsonResponse({'email_error': 'Email is invalid'}, status=400)
+
         if User.objects.filter(email=email).exists():
-            return JsonResponse({'email_error': 'sorry email in use,choose another one '}, status=409)
+            return JsonResponse({'email_error': 'sorry email in use, choose another one'}, status=409)
+        
         return JsonResponse({'email_valid': True})
 
 
-class UsernameValiadtionView(View):
+class UsernameValidationView(View):
     def post(self, request):
         data = json.loads(request.body)
         username = data['username']
