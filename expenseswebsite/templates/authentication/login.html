@@ -1,16 +1,103 @@
 {% extends 'base_auth.html' %}
+{% load static %}
 
 {% block content %}
+  <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-body p-5">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold text-primary">Login to your account</h3>
 
-<div class="card">
+          </div>
+   
+          <form action="{% url 'login'%}" method="post">
+            
+            {% csrf_token%}
 
-<div class="card-body">
+            {% include "partials/_messages.html" %}
 
-<h1>Login</h1>
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="fas fa-user text-primary"></i></span>
+                <input 
+                type="text" 
+                name="username" 
+                placeholder="Username" 
+                id="usernameField"
+                value="{{fieldValues.username}}" 
+                class="form-control form-control-lg bg-light" />
+              </div>
+            </div>
 
 
-</div>    
 
-</div>
+            <div class="mb-4">
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="fas fa-lock text-primary"></i></span>
+                <input 
+                type="password" 
+                name="password" 
+                placeholder="Password" 
+                class="form-control form-control-lg bg-light" 
+                id="passwordField" />
+                <button class="btn btn-light border" type="button" id="showPassword"><i class="fas fa-eye"></i></button>
+              </div>
+            </div>
 
-{% endblock content %}
+            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3 submit-btn">Login</button>
+
+            <div class="text-center">
+      
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .card {
+      transition: all 0.3s ease-in-out;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .form-control:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(to right, #0d6efd, #0b5ed7);
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+    }
+  </style>
+
+  <script>
+    document.getElementById('showPassword').addEventListener('click', function () {
+      const passwordField = document.getElementById('passwordField')
+      const icon = this.querySelector('i')
+    
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text'
+        icon.classList.remove('fa-eye')
+        icon.classList.add('fa-eye-slash')
+      } else {
+        passwordField.type = 'password'
+        icon.classList.remove('fa-eye-slash')
+        icon.classList.add('fa-eye')
+      }
+    })
+  </script>
+
+  <script src="{% static 'js/register.js' %}"></script>
+{% endblock %}
