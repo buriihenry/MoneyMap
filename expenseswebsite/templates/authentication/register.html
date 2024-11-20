@@ -10,8 +10,13 @@
             <h3 class="fw-bold text-primary">Create Account</h3>
             <p class="text-muted">Register for a free account</p>
           </div>
+   
+          <form action="{% url 'register'%}" method="post">
+            
+            {% csrf_token%}
 
-          <form action="" method="post">
+            {% include "partials/_messages.html" %}
+
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text bg-light"><i class="fas fa-user text-primary"></i></span>
@@ -19,7 +24,8 @@
                 type="text" 
                 name="username" 
                 placeholder="Username" 
-                id="usernameField" 
+                id="usernameField"
+                value="{{fieldValues.username}}" 
                 class="form-control form-control-lg bg-light" />
               </div>
             </div>
@@ -34,7 +40,8 @@
                 name="email" 
                 placeholder="Email" 
                 class="form-control form-control-lg bg-light" 
-                id="emailField" />
+                id="emailField"
+                value="{{fieldValues.email}}" />
               </div>
             </div>
             <div class="emailFeedBackArea invalid-feedback" style="display:none"></div>
@@ -48,11 +55,11 @@
                 placeholder="Password" 
                 class="form-control form-control-lg bg-light" 
                 id="passwordField" />
-                <button class="btn btn-light border" type="button" id="showPassword"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-light border showPasswordToggle" type="button" id="showPassword"><i class="fas fa-eye"></i></button>
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Create Account</button>
+            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3 submit-btn">Create Account</button>
 
             <div class="text-center">
               <small class="text-muted">Already have an account? <a href="#" class="text-primary">Sign in</a></small>
