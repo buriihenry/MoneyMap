@@ -1,17 +1,37 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h1 style="color: red;">DEBUG: Preferences Page Loaded</h1>
-
-    <div class="input-group">
-        <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-          <option selected>Choose...</option>
-          {}
-        </select>
-        <button class="btn btn-outline-secondary" type="button">Button</button>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-center mb-4">Select Your Preferred Currency</h5>
+                
+                {% include 'partials/_messages.html' %}
+                
+                <form action="{% url 'preferences' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <select name="currency" class="form-select" id="inputGroupSelect04">
+                            {% if user_preferences.currency %}
+                            <option selected value="{{user_preferences.currency}}">
+                                {{user_preferences.currency}}
+                            </option>
+                            {% else %}
+                            <option selected disabled>Choose your currency</option>
+                            {% endif %}
+                            
+                            {% for currency in currencies %}
+                            <option value="{{currency.name}} - {{currency.value}}">
+                                {{currency.name}} - {{currency.value}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-
-<hr/>
 {% endblock %}
