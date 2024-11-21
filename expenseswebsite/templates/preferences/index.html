@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-center mb-4">Select Your Preferred Currency</h5>
+                
+                {% include 'partials/_messages.html' %}
+                
+                <form action="{% url 'preferences' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <select name="currency" class="form-select" id="inputGroupSelect04">
+                            {% if user_preferences.currency %}
+                            <option selected value="{{user_preferences.currency}}">
+                                {{user_preferences.currency}}
+                            </option>
+                            {% else %}
+                            <option selected disabled>Choose your currency</option>
+                            {% endif %}
+                            
+                            {% for currency in currencies %}
+                            <option value="{{currency.name}} - {{currency.value}}">
+                                {{currency.name}} - {{currency.value}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
