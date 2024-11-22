@@ -3,15 +3,14 @@
 {% block content %}
 
 <div class="container mt-4" style="padding-top: 50px;">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="">Expenses</a></li>
-          <li class="breadcrumb-item active" aria-current="page">My Expenses</li>
-        </ol>
-      </nav>
-      <a href="{% url 'add-expenses' %}" class="btn btn-primary">Add Expense</a>
-      
-  
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'expenses'%}">Expenses</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Edit Expense</li>
+    </ol>
+  </nav>
 
   <div class="card">
     <div class="card-body">
@@ -57,7 +56,7 @@
 
         <input
           type="submit"
-          value="Submit"
+          value="save"
           class="btn btn-primary btn-primary-sm"
         />
       </form>
