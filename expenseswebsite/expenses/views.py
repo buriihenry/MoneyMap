@@ -120,3 +120,9 @@ def expense_edit(request, id):
     except Expense.DoesNotExist:
         messages.error(request, 'Expense not found')
         return redirect('expenses')
+    
+def delete_expense(request,id):
+    expense = Expense.objects.get(pk=id, owner=request.user)
+    expense.delete()
+    messages.success(request, 'Expense Removed')
+    return redirect('expenses')
