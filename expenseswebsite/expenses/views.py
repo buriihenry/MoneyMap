@@ -14,8 +14,8 @@ def search_expenses(request):
         search_str = json.loads(request.body).get('searchText')
 
         expenses = Expense.objects.filter(
-            amount__starts_with=search_str, owner= request.user) | Expense.objects.filter(
-            date__starts_with=search_str, owner= request.user) | Expense.objects.filter(
+            amount__istartswith=search_str, owner= request.user) | Expense.objects.filter(
+            date__istartswith=search_str, owner= request.user) | Expense.objects.filter(
             description__icontains=search_str, owner= request.user) | Expense.objects.filter(
             category__icontains=search_str, owner= request.user)
         
